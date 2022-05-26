@@ -1,0 +1,11 @@
+.page-setting-user{
+    display: flex;
+    justify-content: center;
+    background-color: #e4e7ee;
+}
+.form-setting-users{
+    border: 1px solid #e4e7ee;
+    width: 70%;
+    background-color: white;
+    height: 1000px;
+}
