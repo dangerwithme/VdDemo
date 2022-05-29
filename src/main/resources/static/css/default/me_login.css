@@ -1,0 +1,42 @@
+.loginDiv{
+    display: flex;
+    align-self: center;
+    border-radius: 10px;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    top:25%;
+    width: 480px;
+    height: 455px;
+    background-color: rgba(255,255,255,0.5);
+}
+input{
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    font-size: 14px;
+    border-color: darkgray;
+    background-color: rgba(255,255,255,0);
+}
+input:focus{
+    background-color: white;
+}
+td{
+    font-size: 20px;
+    padding: 25px;
+}
+.IconTitleDivStyle{
+    flex: 1;
+    font-size: 80px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+}
+button:hover{
+    background-color: rgba(255,255,255,0.4);
+}
+a{
+    text-decoration: none;
+}

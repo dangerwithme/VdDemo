@@ -4,6 +4,7 @@
     background-color: rgba(0,0,0,0.85);
     /*background-color: rgba(255,255,255,0.7);*/
 }
+
 .IconTitleDivStyle{
     margin: 0.5rem 0 0.5rem 0;
     font-size: 40px;
@@ -20,6 +21,7 @@
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 4px;
+    position: relative;
     cursor: pointer;
 }
 .contributeDiv{
@@ -31,7 +33,6 @@
     width: 100%;
     height: 100%;
     display: inline-block;
-    margin: 0px;
     padding: 9px 24px;
     border: none;
     border-radius: 100vw;
@@ -102,10 +103,26 @@
 .searchInput:focus{
     background-color: white;
 }
-.aboutUser{
-    color: white;
-    display: flex;
-    width: 100%;
+.aboutUserMenu{
+    visibility: visible;
+    position: absolute;
+    width: 300%;
+    overflow: hidden;
+    display: none;
+    height: 200%;
+    top: 100%;
+    justify-content: center;
+    flex-flow: column;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background-color: rgb(31, 31, 31);
     align-items: center;
-    height: 100%;
+    left: -100%;
+}
+.contributeMenu_Div>a{
+    color: rgb(214, 214, 214);
+    text-decoration: none;
+}
+.headUserDiv:hover .aboutUserMenu{
+    display: flex;
 }
