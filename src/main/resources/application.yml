@@ -5,3 +5,13 @@ spring:
       url: jdbc:mysql://localhost:3306/vddatabase?serverTimezone=GMT
       username: root
       password: Xiechengyang20030220
+
+server:
+  port: 8070
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      table-underline: false
