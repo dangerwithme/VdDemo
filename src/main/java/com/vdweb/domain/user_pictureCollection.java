@@ -9,4 +9,9 @@ public class user_pictureCollection {
     private  long collectionID;
     private long pictureID;
     private long userID;
+
+    public user_pictureCollection(long pictureID, long userID) {
+        this.pictureID = pictureID;
+        this.userID = userID;
+    }
 }

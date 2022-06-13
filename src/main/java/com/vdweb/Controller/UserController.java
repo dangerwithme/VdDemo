@@ -1,6 +1,7 @@
 package com.vdweb.Controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.vdweb.Mapper.UserMapper;
 import com.vdweb.domain.Result;
 import com.vdweb.domain.User;
@@ -30,4 +31,26 @@ public class UserController {
         }
     }
 
+    @GetMapping("/Emails")
+    public Result getEmail(@RequestParam("email")String userEmail){
+        return new Result(true,userMapper.selectOne(new QueryWrapper<User>().eq("userEmail",userEmail))!=null);
+    }
+
+    @PostMapping("/Emails")
+    public Result updateEmail(@RequestParam("newEmail")String newEmail,@RequestParam("oldEmail")String oldEmail){
+        return new Result(true,userMapper.update(null,new UpdateWrapper<User>().set("userEmail",newEmail).eq("userEmail",oldEmail)));
+    }
+
+    @PostMapping
+    public Result insertUser(@RequestParam("userName")String username,@RequestParam("password")String password,@RequestParam("userEmail")String userEmail){
+        User user = new User();
+        user.setUserName(username);
+        user.setUserEmail(userEmail);
+        if (userMapper.selectOne(new QueryWrapper<User>().eq("userEmail",userEmail))==null) {
+            userMapper.insert(user);
+            return new Result(true, userMapper.update(null, new UpdateWrapper<User>().set("userpassword", password).eq("userEmail", userEmail)));
+        }else{
+            return new Result(true,false);
+        }
+    }
 }
