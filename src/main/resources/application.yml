@@ -5,6 +5,10 @@ spring:
       url: jdbc:mysql://localhost:3306/vddatabase?serverTimezone=GMT
       username: root
       password: Xiechengyang20030220
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 100MB
 
 server:
   port: 8070
@@ -15,3 +19,4 @@ mybatis-plus:
   global-config:
     db-config:
       table-underline: false
+      id-type: auto

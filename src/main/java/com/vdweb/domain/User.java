@@ -13,4 +13,14 @@ public class User {
     private int userAge;
     private String userIntroduction;
     private String userIconImage;
+
+    public User() {
+    }
+
+    public User(long userID, String userName, int userAge, String userIntroduction) {
+        this.userID = userID;
+        this.userName = userName;
+        this.userAge = userAge;
+        this.userIntroduction = userIntroduction;
+    }
 }
