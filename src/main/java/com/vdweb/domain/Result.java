@@ -1,8 +1,6 @@
 package com.vdweb.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class Result {

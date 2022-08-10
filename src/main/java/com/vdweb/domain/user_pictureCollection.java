@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 public class user_pictureCollection {
     @TableId
-    private  long collectionID;
-    private long pictureID;
-    private long userID;
+    private  Long collectionID;
+    private Long pictureID;
+    private Long userID;
 
     public user_pictureCollection(long pictureID, long userID) {
         this.pictureID = pictureID;

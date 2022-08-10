@@ -1,8 +1,7 @@
 package com.vdweb;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.vdweb.Mapper.PictureMapper;
-import com.vdweb.domain.Picture;
+import com.vdweb.Service.PictureService;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,18 +9,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.File;
 
 @SpringBootTest
+@RequiredArgsConstructor
 class DemoApplicationTests {
 
     @Autowired
-    private PictureMapper pictureMapper;
-
-    @Test
-    void contextLoads() {
-        System.out.println(pictureMapper.selectList(null));
-    }
+    PictureService pictureService;
 
     @Test
     void test1(){
+        System.out.println(pictureService.EasySearch("acx?雪沙"));;
     }
 
 }

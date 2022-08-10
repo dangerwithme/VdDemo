@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class Picture {
     @TableId
-    private long PictureID;
+    private Long PictureID;
     private String PicturePath;
     private long UserID;
     private String PictureTitle;

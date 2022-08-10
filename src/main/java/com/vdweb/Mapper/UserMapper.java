@@ -1,17 +1,20 @@
 package com.vdweb.Mapper;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.vdweb.domain.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+    @Select("SELECT * " +
+            "from user where userName " +
+            "REGEXP #{condition}")
+    List<User> searchUser(@Param("condition")String condition);
 
+    @Select("select userName,userIconImage from user where userID = #{userID}")
+    User getCommentUser(@Param("userID")long userID);
 }

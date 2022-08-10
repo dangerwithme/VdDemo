@@ -1,13 +1,12 @@
 package com.vdweb.domain;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 @Data
 public class User {
     @TableId
-    private long userID;
+    private Long userID;
     private String userName;
     private String userEmail;
     private int userAge;
@@ -22,5 +21,10 @@ public class User {
         this.userName = userName;
         this.userAge = userAge;
         this.userIntroduction = userIntroduction;
+    }
+
+    public User(String userName, String userIconImage) {
+        this.userName = userName;
+        this.userIconImage = userIconImage;
     }
 }

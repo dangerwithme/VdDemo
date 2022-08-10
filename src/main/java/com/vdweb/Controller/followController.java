@@ -1,6 +1,6 @@
 package com.vdweb.Controller;
 
-import com.vdweb.Mapper.followMapper;
+import com.vdweb.Service.FollowService;
 import com.vdweb.domain.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.*;
 public class followController {
 
     @Autowired
-    private followMapper followMapper;
+    private FollowService followService;
 
     @PostMapping
     public Result follow(@RequestParam("followerID")long followID, @RequestParam("followedID")long followedID){
-        return new Result(true,followMapper.insert(followID,followedID));
+        return new Result(true, followService.FollowSomeOne(followID, followedID));
     }
 
     @GetMapping
     public Result getFollow(@RequestParam("followerID")long followID, @RequestParam("followedID")long followedID){
-        return new Result(true,followMapper.selectOne(followID,followedID)!=null);
+        return new Result(true,followService.IsItFollowing(followID,followedID));
     }
 
     @DeleteMapping
     public Result delFollow(@RequestParam("followerID")long followID, @RequestParam("followedID")long followedID){
-        return new Result(true,followMapper.deleteOne(followID,followedID));
+        return new Result(true,followService.UnFollowSomeOne(followID,followedID));
     }
 }
