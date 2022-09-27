@@ -1,5 +1,6 @@
 package com.vdweb.Controller;
 
+import com.alibaba.fastjson.JSON;
 import com.vdweb.Service.UserService;
 import com.vdweb.domain.Result;
 import com.vdweb.domain.User;
@@ -45,9 +46,7 @@ public class UserController {
 
     @PutMapping("/{userID}")
     public Result updateUser(@PathVariable long userID,@RequestParam("userName")String userName,@RequestParam("userAge")int userAge,@RequestParam("userIntroduction")String userIntroduction){
-        System.out.println(userID+userName+userAge+userIntroduction);
         User user = new User(userID,userName,userAge,userIntroduction);
-        System.out.println(user);
         return new Result(true,userService.updateUserinfo(user));
     }
 
@@ -60,4 +59,5 @@ public class UserController {
     public Result getSearchResult(@RequestParam("condition")String condition){
         return new Result(true,userService.EasySearch(condition));
     }
+
 }

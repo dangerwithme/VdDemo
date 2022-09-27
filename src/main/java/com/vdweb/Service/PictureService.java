@@ -1,5 +1,7 @@
 package com.vdweb.Service;
 
+import com.github.pagehelper.PageInfo;
+import com.vdweb.domain.Picture;
 import com.vdweb.domain.Result;
 import com.vdweb.domain.hotPicture;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,4 +17,6 @@ public interface PictureService {
     List<hotPicture> EasySearch(String condition);
     boolean addPictureView(long pictureID);
     List<hotPicture> userTagIDSearchPicture(long tagID);
+    PageInfo<Picture> getAllPictureByMange(Integer pageNum);
+    boolean deletePicture(long pictureID);
 }

@@ -26,4 +26,15 @@ public interface pictureCommentMapper extends BaseMapper<pictureComment> {
     @ResultMap("pictureCommentMap")
     List<pictureComment> selectChildrenCommentByParentID(@Param("parentID") long parentID);
 
+    @Select("select * from picturecomment")
+    @Results(id = "noChildrenPictureCommentMap",value = {
+            @Result(id = true,column = "commentID",property = "commentID"),
+            @Result(column = "commentUserID",property = "commentUserID"),
+            @Result(property = "commentUser",column = "commentUserID",
+                    one = @One(select = "com.vdweb.Mapper.UserMapper.getCommentUser",fetchType = FetchType.DEFAULT)),
+            @Result(column = "content",property = "content"),
+            @Result(column = "pictureID",property = "pictureID"),
+    })
+    List<pictureComment> selectManageComment();
+
 }

@@ -16,6 +16,14 @@ public class Picture {
     public Picture() {
     }
 
+    public Picture(Long pictureID, String picturePath, String pictureTitle, int pictureView, int pictureLike) {
+        PictureID = pictureID;
+        PicturePath = picturePath;
+        PictureTitle = pictureTitle;
+        PictureView = pictureView;
+        PictureLike = pictureLike;
+    }
+
     public Picture(String picturePath, long userID, String pictureTitle) {
         PicturePath = picturePath;
         UserID = userID;

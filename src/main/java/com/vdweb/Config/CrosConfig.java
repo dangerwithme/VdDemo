@@ -15,4 +15,5 @@ public class CrosConfig implements WebMvcConfigurer {
                 .maxAge(3600)
                 .allowedHeaders("*");
     }
+
 }

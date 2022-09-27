@@ -1,5 +1,6 @@
 package com.vdweb.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.vdweb.domain.Result;
 import com.vdweb.domain.User;
 
@@ -15,4 +16,5 @@ public interface UserService {
     int updateUserinfo(User user);
     int deleteUser(long userID);
     List<User> EasySearch(String condition);
+    PageInfo<User> getNormalUser(Integer pageNum, Integer pageSize);
 }

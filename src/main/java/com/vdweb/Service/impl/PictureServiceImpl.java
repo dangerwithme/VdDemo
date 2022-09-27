@@ -1,6 +1,8 @@
 package com.vdweb.Service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.vdweb.Mapper.CollectionMapper;
 import com.vdweb.Mapper.PictureMapper;
 import com.vdweb.Mapper.ShowPictureMapper;
@@ -15,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.List;
-import java.util.regex.Pattern;
 
 @Service
 public class PictureServiceImpl implements PictureService {
@@ -29,8 +30,6 @@ public class PictureServiceImpl implements PictureService {
     @Autowired
     private pictureTagMapper pictureTagMapper;
 
-    @Autowired
-    private CollectionMapper collectionMapper;
 
     @Override
     public List<hotPicture> getHotPictureInfo() {
@@ -52,13 +51,13 @@ public class PictureServiceImpl implements PictureService {
         int date = 0;
         boolean flag = false;
         Picture p = pictureMapper.selectOne(new QueryWrapper<Picture>().eq("pictureID", pictureID));
-        File f = new File("D:\\graduationproject\\vddemp\\public\\picture\\picture\\" + p.getPicturePath());
-        if (f.exists())
-            flag = f.delete();
+        if(p!=null)
+            flag = savePicture.deleteFile(p.getPicturePath());
         if(flag) {
-            date = pictureMapper.delete(new QueryWrapper<Picture>().eq("pictureID", pictureID).eq("userID", userID));
+            date = pictureMapper.updateById(new Picture(pictureID,"delete-picture.png","图片已失效",0,0));
+            if(date>0)
+                date = pictureMapper.deleteByPictureID(pictureID);
             pictureTagMapper.delete(new QueryWrapper<pictureTag>().eq("pictureID", pictureID));
-            collectionMapper.delete(new QueryWrapper<user_pictureCollection>().eq("pictureID", pictureID));
         }
         return new Result(true,date);
     }
@@ -94,5 +93,29 @@ public class PictureServiceImpl implements PictureService {
     public List<hotPicture> userTagIDSearchPicture(long tagID) {
         return showPictureMapper.useTagSearchPicture(tagID);
     }
+
+    @Override
+    public PageInfo<Picture> getAllPictureByMange(Integer pageNum) {
+        PageHelper.startPage(pageNum,7);
+        List<Picture> pictures = pictureMapper.selectList(new QueryWrapper<Picture>().eq("deleted","0"));
+        PageInfo<Picture> picturePageInfo = new PageInfo<>(pictures);
+        return picturePageInfo;
+    }
+
+    @Override
+    public boolean deletePicture(long pictureID) {
+        Picture p = pictureMapper.selectOne(new QueryWrapper<Picture>().eq("pictureID", pictureID));
+        boolean flag = savePicture.deleteFile(p.getPicturePath());
+        if(p!=null)
+            flag = savePicture.deleteFile(p.getPicturePath());
+        if(flag) {
+            flag = pictureMapper.deleteByPictureID(pictureID)>0;
+            if(flag)
+                flag = pictureMapper.updateById(new Picture(pictureID,"delete-picture.png","图片已失效",0,0))>0;
+            pictureTagMapper.delete(new QueryWrapper<pictureTag>().eq("pictureID", pictureID));
+        }
+        return flag;
+    }
+
 
 }

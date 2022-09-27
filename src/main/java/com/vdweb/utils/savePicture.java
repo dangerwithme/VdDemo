@@ -28,4 +28,12 @@ public class savePicture {
         }
         return null;
     }
+
+    public static boolean deleteFile(String filePath) {
+        File f = new File("D:/graduationproject/vddemp/public/picture/picture/"+filePath);
+        if (f.exists())
+            return f.delete();
+        return false;
+    }
+
 }

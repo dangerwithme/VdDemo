@@ -7,4 +7,6 @@ import com.vdweb.domain.pictureComment;
 public interface pictureCommentService {
     PageInfo<pictureComment> getCurrentPictureComment(long pictureID,Integer pageNum,Integer pageSize);
     int postComment(long userID, long pictureID, long parentID,String content);
+    PageInfo<pictureComment> getManagePageComment(Integer pageNum);
+    boolean delComment(long CommentID, long parentID);
 }

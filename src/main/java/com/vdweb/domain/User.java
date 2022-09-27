@@ -10,6 +10,7 @@ public class User {
     private String userName;
     private String userEmail;
     private int userAge;
+    private int userPrivilege;
     private String userIntroduction;
     private String userIconImage;
 
@@ -21,6 +22,14 @@ public class User {
         this.userName = userName;
         this.userAge = userAge;
         this.userIntroduction = userIntroduction;
+    }
+
+    public User(long userID, String userName, int userAge, String userIntroduction,String userIconImage) {
+        this.userID = userID;
+        this.userName = userName;
+        this.userAge = userAge;
+        this.userIntroduction = userIntroduction;
+        this.userIconImage = userIconImage;
     }
 
     public User(String userName, String userIconImage) {

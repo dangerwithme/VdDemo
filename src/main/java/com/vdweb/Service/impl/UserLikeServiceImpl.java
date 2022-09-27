@@ -24,7 +24,7 @@ public class UserLikeServiceImpl implements UserLikeService {
 
     @Override
     public boolean insertLike(long pictureID, long userID) {
-        user_like userLike = new user_like(pictureID,userID);
+        user_like userLike = new user_like(userID,pictureID);
         return userLikeMapper.insert(userLike)==1&&pictureMapper.addPictureLike(pictureID);
     }
 

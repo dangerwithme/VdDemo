@@ -2,6 +2,8 @@ package com.vdweb.Service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.vdweb.Mapper.UserMapper;
 import com.vdweb.Service.UserService;
 import com.vdweb.domain.Result;
@@ -28,10 +30,10 @@ public class UserServiceImpl implements UserService {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         Object o = userMapper.selectOne(wrapper.eq("userEmail",userName).eq("userpassword",password));
         if (o!=null) {
-            return new Result(true, o);
-        }else{
-            return new Result(false,false);
+            if(userMapper.UserIsDeleted(userName)==0)
+                return new Result(true, o);
         }
+        return new Result(false,false);
     }
 
     @Override
@@ -69,7 +71,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int deleteUser(long userID) {
-        return userMapper.deleteById(userID);
+        User user = new User(userID,"用户已注销",1,"","default-icon.png");
+        if(userMapper.updateById(user)>0)
+            return userMapper.deleteByUserID(userID);
+        return 0;
     }
 
     @Override
@@ -77,5 +82,13 @@ public class UserServiceImpl implements UserService {
         condition = new ConditionToRegularExpressionForSearch().action(condition);
         System.out.println(condition);
         return userMapper.searchUser(condition);
+    }
+
+    @Override
+    public PageInfo<User> getNormalUser(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<User> UserInfo = userMapper.selectList(new QueryWrapper<User>().eq("userPrivilege",1).eq("deleted","0"));
+        PageInfo<User> UserPageInfo = new PageInfo<>(UserInfo);
+        return UserPageInfo;
     }
 }

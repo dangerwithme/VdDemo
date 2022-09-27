@@ -20,4 +20,7 @@ public interface PictureMapper extends BaseMapper<Picture> {
 
     @Update("update picture SET PictureLike = PictureLike - 1 where PictureID = #{pictureID}")
     boolean minusPictureLike(@Param("pictureID")long pictureID);
+
+    @Update("update picture set deleted=1 where PictureID=#{pictureID}")
+    int deleteByPictureID(@Param("pictureID")long pictureID);
 }

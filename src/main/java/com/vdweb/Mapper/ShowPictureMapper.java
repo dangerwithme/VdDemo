@@ -11,17 +11,17 @@ import java.util.List;
 @Mapper
 public interface ShowPictureMapper {
 
-    @Select("SELECT p.PictureID,p.PicturePath,p.PictureTitle,u.userID as authorID,p.PictureView,p.PictureLike,u.userIconImage as iconImage,u.userName from picture p,user u where p.UserID = u.userID ORDER BY p.PictureView DESC LIMIT 10")
+    @Select("SELECT p.PictureID,p.PicturePath,p.PictureTitle,u.userID as authorID,p.PictureView,p.PictureLike,u.userIconImage as iconImage,u.userName from picture p,user u where p.UserID = u.userID and p.deleted='0' ORDER BY p.PictureView DESC LIMIT 10")
     List<hotPicture> getHotPicture();
 
-    @Select("SELECT p.PictureID,p.PicturePath,p.PictureTitle,u.userID as authorID,p.PictureView,p.PictureLike,u.userIconImage as iconImage,u.userName from picture p,user u where p.UserID = u.userID and u.userID = #{userID}")
+    @Select("SELECT p.PictureID,p.PicturePath,p.PictureTitle,u.userID as authorID,p.PictureView,p.PictureLike,u.userIconImage as iconImage,u.userName from picture p,user u where p.UserID = u.userID and u.userID = #{userID} and p.deleted='0'")
     List<hotPicture> getWorks(@Param("userID") long userID);
 
     @Select("SELECT p.PictureID,p.PicturePath,p.PictureTitle,u.userID as authorID,p.PictureView,p.PictureLike,u.userIconImage as iconImage,u.userName from picture p,user u where p.UserID = u.userID and PictureID in (select pictureID from user u join user_picturecollection c on u.userID = c.userID where c.userID = #{userID})")
     List<hotPicture> getCollection(@Param("userID") long userID);
 
     @Select("SELECT p.PictureID,p.PicturePath,p.PictureTitle,u.userID as authorID,p.PictureView,p.PictureLike,u.userIconImage as iconImage,u.userName " +
-            "from picture p,user u where p.UserID = u.userID and p.PictureTitle " +
+            "from picture p,user u where p.UserID = u.userID and p.deleted='0' and p.PictureTitle " +
             "REGEXP #{condition}")
     List<hotPicture> searchPicture(@Param("condition")String condition);
 
